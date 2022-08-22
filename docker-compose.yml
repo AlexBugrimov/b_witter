@@ -1,0 +1,22 @@
+services:
+  postgres:
+    container_name: b_witter_postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: b_witter
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5435:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:

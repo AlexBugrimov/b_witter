@@ -1,0 +1,19 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: BWitter
+
+  datasource:
+    username: b_witter
+    password: password
+    url: jdbc:postgresql://localhost:5435/b_witter
+  jpa:
+    open-in-view: off
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
