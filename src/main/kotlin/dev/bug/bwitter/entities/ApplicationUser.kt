@@ -1,4 +1,4 @@
-package dev.bug.bwitter.models
+package dev.bug.bwitter.entities
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import org.hibernate.Hibernate
@@ -11,7 +11,7 @@ data class ApplicationUser(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    val userId: Long,
+    val userId: Long?,
 
     @Column(name = "first_name")
     val firstName: String,
@@ -23,16 +23,16 @@ data class ApplicationUser(
     val email: String,
 
     @Column(name = "phone")
-    val phone: String,
+    val phone: String?,
 
     @Column(name = "birth_date")
     val birthDate: LocalDate,
 
     @Column(unique = true)
-    val username: String,
+    var username: String?,
 
     @JsonIgnore
-    val password: String,
+    val password: String?,
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -41,6 +41,14 @@ data class ApplicationUser(
     inverseJoinColumns = [JoinColumn(name = "role_id")])
     val authorities: MutableSet<Role> = mutableSetOf()
 ) {
+
+    constructor(
+        firstName: String,
+        lastName: String,
+        email: String,
+        birthDate: LocalDate,
+    ) : this(null, firstName, lastName, email, null, birthDate, null, null, mutableSetOf())
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false

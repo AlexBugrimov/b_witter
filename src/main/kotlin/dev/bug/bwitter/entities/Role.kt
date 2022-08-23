@@ -1,4 +1,4 @@
-package dev.bug.bwitter.models
+package dev.bug.bwitter.entities
 
 import org.hibernate.Hibernate
 import javax.persistence.*
