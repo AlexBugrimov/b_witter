@@ -14,40 +14,46 @@ data class ApplicationUser(
     val userId: Long?,
 
     @Column(name = "first_name")
-    val firstName: String,
+    var firstName: String?,
 
     @Column(name = "last_name")
-    val lastName: String,
+    var lastName: String?,
 
     @Column(unique = true)
-    val email: String,
+    var email: String?,
 
     @Column(name = "phone")
-    val phone: String?,
+    var phone: String?,
 
     @Column(name = "birth_date")
-    val birthDate: LocalDate,
+    val birthDate: LocalDate?,
 
     @Column(unique = true)
     var username: String?,
 
     @JsonIgnore
-    val password: String?,
+    var password: String?,
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "user_role_in",
         joinColumns = [JoinColumn(name = "user_id")],
     inverseJoinColumns = [JoinColumn(name = "role_id")])
-    val authorities: MutableSet<Role> = mutableSetOf()
-) {
+    val authorities: MutableSet<Role> = mutableSetOf(),
 
+    val enable: Boolean = false,
+
+    @Column(nullable = true)
+    @JsonIgnore
+    val verification: Long?
+) {
     constructor(
-        firstName: String,
-        lastName: String,
-        email: String,
-        birthDate: LocalDate,
-    ) : this(null, firstName, lastName, email, null, birthDate, null, null, mutableSetOf())
+        firstName: String?,
+        lastName: String?,
+        email: String?,
+        birthDate: LocalDate?,
+        phone: String?
+    ) : this(null, firstName, lastName, email, phone, birthDate, null, null, mutableSetOf(), enable = false, null)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
