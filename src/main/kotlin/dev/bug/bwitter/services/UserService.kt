@@ -52,4 +52,12 @@ class UserService(
         return userRepository.findByUsername(username)
             .orElseThrow { UserDoesNotExistException(username) }
     }
+
+    fun generateEmailVerification(username: String) {
+        val user = getUserByUsername(username)
+        user.verification = generateVerificationNumber()
+        userRepository.save(user)
+    }
+
+    private fun generateVerificationNumber(): Long = (0 .. Long.MAX_VALUE).random()
 }

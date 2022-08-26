@@ -7,6 +7,7 @@ abstract class Request(
     open val lastName: String?,
     open val email: String?,
     open val birthDate: LocalDate?,
-    open val phone: String?
+    open val phone: String?,
+    open val username: String?
 ) {
 }

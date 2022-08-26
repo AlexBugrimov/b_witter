@@ -45,7 +45,7 @@ data class ApplicationUser(
 
     @Column(nullable = true)
     @JsonIgnore
-    val verification: Long?
+    var verification: Long?
 ) {
     constructor(
         firstName: String?,

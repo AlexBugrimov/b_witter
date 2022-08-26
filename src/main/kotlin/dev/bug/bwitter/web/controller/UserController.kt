@@ -43,4 +43,10 @@ class UserController(
         val updatedUser = userService.updateUser(username, applicationUser)
         return ResponseEntity(userMapper.toUserResponse(updatedUser), HttpStatus.OK)
     }
+
+    @PostMapping("/{username}/email-code")
+    fun createEmailVerification(@PathVariable("username") username: String): ResponseEntity<String> {
+        userService.generateEmailVerification(username)
+        return ResponseEntity("Verification code generated, email send", HttpStatus.OK)
+    }
 }
